@@ -1,0 +1,32 @@
+mport pandas as pd
+data=pd.read_csv("Salaries.csv")
+data.head(10)
+data.tail(10)
+data.shape
+print("number of rows",data.shape[0])
+print("number of columns",data.shape[1])
+data.info()
+data.isnull().sum()
+data.columns
+data=data.drop(['Id','Notes','Agency','Status'],axis=1) # for columns
+data.columns
+data.head(1)
+data.describe(include='all')   
+data['EmployeeName'].value_counts().head()
+data['JobTitle'].nunique()
+data[data['JobTitle'].str.contains('CAPTAIN')]  
+data[data['JobTitle'].str.contains('CAPTAIN',case=False)].count() 
+data[data['JobTitle'].str.contains('Fire',case=False)]['EmployeeName']
+data['BasePay'].describe()
+import numpy as np
+data['EmployeeName'].replace('Not provided',np.nan)  
+data.drop(data[data.isnull().sum(axis=1)==5].index,axis=0,inplace=True)
+data.isnull().sum(axis=1)
+data[data['EmployeeName']=='ALBERT PARDINI']['JobTitle']
+data[data['EmployeeName']=='ALBERT PARDINI']['TotalPayBenefits']
+data['BasePay'] = pd.to_numeric(data['BasePay'], errors='coerce')
+data[data['BasePay'] == data['BasePay'].max()]['EmployeeName']
+data['BasePay'] = pd.to_numeric(data['BasePay'], errors='coerce')
+data_clean = data.dropna(subset=['BasePay'])
+jobtitle_counts = data_clean['JobTitle'].value_counts()
+print("\nJob Title counts:\n", jobtitle_counts)
